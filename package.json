@@ -4,10 +4,12 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --port 4900",
-    "build": "ng build",
+    "build": "ng build --aot --prod --output-hashing=none --extract-css",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "package":" cat dist/{polyfills,runtime,main}.js > dist/l.js",
+    "bundle":"npm run build && npm run package"
   },
   "private": true,
   "dependencies": {
