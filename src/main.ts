@@ -12,6 +12,8 @@ platformBrowserDynamic()
   .bootstrapModule(AppModule)
   .catch((err) => console.error(err));
 
+window.customElements.define('app-tekchat', class extends HTMLElement {});
+
 // Get HTML head element
 const head = document.getElementsByTagName('HEAD')[0];
 
@@ -31,3 +33,6 @@ linkIcons.href = 'https://fonts.googleapis.com/icon?family=Material+Icons';
 // Append link element to HTML head
 head.appendChild(link);
 head.appendChild(linkIcons);
+
+const k = document.createElement('app-tekchat');
+document.getElementsByTagName('body')[0].appendChild(k);
