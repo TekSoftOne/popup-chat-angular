@@ -4,7 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { AppComponent } from './app.component';
+import { RootComponent } from './root.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MessageComponent } from './messages/message/message.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -21,7 +21,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 };
 
 @NgModule({
-  declarations: [AppComponent, MessageComponent],
+  declarations: [RootComponent, MessageComponent],
   imports: [
     BrowserModule,
     MatButtonModule,
@@ -42,6 +42,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
     },
   ],
-  bootstrap: [AppComponent],
+  bootstrap: [RootComponent],
 })
 export class AppModule {}
