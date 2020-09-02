@@ -34,16 +34,15 @@
 
 <section
   fxLayout
+  [ngClass]="{
+    'chat-box-full': isMobile === true,
+    'chat-box-fluid': isMobile === false
+  }"
   style="
     box-shadow: 0 12px 20px 0 rgba(0, 0, 0, 0.15);
-    border-radius: 3px !important;
-    width: 400px !important;
     background-color: #f1f1f1;
-    height: 500px !important;
     overflow: hidden;
-    bottom: 28px;
     position: fixed;
-    right: 24px;
   "
 >
   <div class="chat-pane" id="chat-right">

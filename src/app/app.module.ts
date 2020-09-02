@@ -37,7 +37,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     AngularFirestoreModule,
     BrowserAnimationsModule,
   ],
-  exports: [ChatboxComponent],
+  exports: [],
   providers: [
     {
       provide: PERFECT_SCROLLBAR_CONFIG,

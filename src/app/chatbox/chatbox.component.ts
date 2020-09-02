@@ -33,9 +33,17 @@ export class ChatboxComponent implements OnInit, OnDestroy {
   private loadMessageSubscription: Subscription;
   public me = '1';
   public currentUser = '2';
+
+  public isMobile = false;
+  private width: number = window.innerWidth;
+  private height: number = window.innerHeight;
+  private mobileWidth = 760;
+
   constructor(private db: AngularFirestore) {}
 
   ngOnInit(): void {
+    this.checkIsMobile();
+
     const incommingMessages = this.db
       .collection(this.COLLECTION_NAME)
       .doc(this.me)
@@ -66,6 +74,10 @@ export class ChatboxComponent implements OnInit, OnDestroy {
     if (this.loadMessageSubscription) {
       this.loadMessageSubscription.unsubscribe();
     }
+  }
+
+  private checkIsMobile(): void {
+    this.isMobile = this.width < this.mobileWidth;
   }
 
   public sendMessage(): Observable<boolean> {
