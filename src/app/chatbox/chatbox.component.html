@@ -33,6 +33,7 @@
 </style>
 
 <mat-expansion-panel
+  hideToggle="true"
   style="
     box-shadow: 0 12px 20px 0 rgba(0, 0, 0, 0.15);
     background-color: #f1f1f1;
@@ -48,10 +49,13 @@
   (opened)="panelOpenState = true"
   (closed)="panelOpenState = false"
 >
-  <mat-expansion-panel-header>
-    <mat-panel-title>
+  <mat-expansion-panel-header style="width: 100%; background-color: #dedede">
+    <mat-panel-title [ngStyle]="{ color: '#6d6d6d', width: '100%' }">
       <mat-icon *ngIf="panelOpenState === false">message</mat-icon>
-      <span *ngIf="panelOpenState === true">Support from Teksoft1</span>
+      <div *ngIf="panelOpenState === true" fxLayout="row" fxFlexFill>
+        <span>Support from Teksoft1</span>
+        <mat-icon style="margin-left: auto">expand_less</mat-icon>
+      </div>
     </mat-panel-title>
     <mat-panel-description> </mat-panel-description>
   </mat-expansion-panel-header>
@@ -113,10 +117,10 @@
             (ngSubmit)="sendMessage()"
           >
             <mat-form-field fxFlex>
-              <mat-label>Enter your message</mat-label>
               <input
                 type="text"
                 matInput
+                placeholder="Enter your message"
                 [(ngModel)]="message"
                 name="messageBox"
               />

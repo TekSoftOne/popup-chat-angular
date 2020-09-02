@@ -30,18 +30,100 @@
 .chat-panel-close,
 .chat-box-close {
   height: 48px !important;
-  width: 100px !important;
+  width: 70px !important;
+  min-height: auto !important;
+  min-width: auto !important;
+  right: 10px !important;
+  bottom: 10px !important;
 }
 
 @media (max-width: 768px) {
-  .chat-box-full,
+  .chat-box-full {
+    right: 0px;
+    bottom: 0px;
+    height: calc(100% - 65px);
+    width: 100%;
+    min-width: 100%;
+    min-height: calc(100% - 65px);
+    border-radius: 0px;
+  }
+
   .chat-panel-full {
-    right: 0px !important;
-    bottom: 0px !important;
-    height: 100% !important;
-    width: 100% !important;
-    min-width: 100% !important;
-    min-height: 100% !important;
-    border-radius: 0px !important;
+    right: 0px;
+    bottom: 0px;
+    height: 100%;
+    width: 100%;
+    min-width: 100%;
+    min-height: 100%;
+    border-radius: 0px;
+  }
+}
+
+mat-expansion-panel-header,
+mat-expansion-panel-header:hover {
+  //background-color: black !important;
+  //color: white !important;
+  border-bottom-right-radius: 0px !important;
+  border-bottom-left-radius: 0px !important;
+}
+
+// Everything
+
+::ng-deep {
+  $custom-main-color: rgba(0, 0, 0, 0.6);
+  $custom-label-color: rgba(0, 0, 0, 0.8);
+
+  // mat-icon-stepper selected color change
+  .mat-step-header .mat-step-icon-selected,
+  .mat-step-header .mat-step-icon-state-done,
+  .mat-step-header .mat-step-icon-state-edit {
+    background-color: $custom-main-color !important;
+  }
+
+  // input outline color
+  .mat-form-field-appearance-outline .mat-form-field-outline {
+    color: $custom-main-color !important;
+  }
+
+  // mat-input focused color
+  .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+    color: $custom-main-color !important;
+  }
+
+  // mat-input error outline color
+  .mat-form-field-appearance-outline.mat-form-field-invalid.mat-form-field-invalid
+    .mat-form-field-outline-thick {
+    color: $custom-main-color !important;
+    opacity: 0.8 !important;
+  }
+
+  // mat-input caret color
+  .mat-input-element {
+    caret-color: $custom-main-color !important;
+  }
+
+  // mat-input error caret color
+  .mat-form-field-invalid .mat-input-element,
+  .mat-warn .mat-input-element {
+    caret-color: $custom-main-color !important;
+  }
+
+  // mat-label normal state style
+  .mat-form-field-label {
+    color: $custom-label-color !important;
+  }
+
+  // mat-label focused style
+  .mat-form-field.mat-focused .mat-form-field-label {
+    color: $custom-main-color !important;
+  }
+
+  // mat-label error style
+  .mat-form-field.mat-form-field-invalid .mat-form-field-label {
+    color: $custom-main-color !important;
+  }
+
+  .mat-form-field.mat-focused .mat-form-field-ripple {
+    background-color: $custom-main-color;
   }
 }
