@@ -1,3 +1,6 @@
+$panel-bar-height: 65px;
+$header-height: 100px;
+$chat-box-height: 600px;
 #chat-right {
   width: 100%;
 }
@@ -20,11 +23,11 @@
 }
 
 .chat-box-open {
-  height: 500px;
+  height: $chat-box-height - $panel-bar-height;
 }
 
 .chat-panel-open {
-  height: 600px;
+  height: $chat-box-height;
 }
 
 .chat-panel-close,
@@ -33,18 +36,18 @@
   width: 70px !important;
   min-height: auto !important;
   min-width: auto !important;
-  right: 10px !important;
-  bottom: 10px !important;
+  right: 40px !important;
+  bottom: 40px !important;
 }
 
 @media (max-width: 768px) {
   .chat-box-full {
     right: 0px;
     bottom: 0px;
-    height: calc(100% - 65px);
+    height: calc(100% - #{$panel-bar-height});
     width: 100%;
     min-width: 100%;
-    min-height: calc(100% - 65px);
+    min-height: calc(100% - #{$panel-bar-height});
     border-radius: 0px;
   }
 
