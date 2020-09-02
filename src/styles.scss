@@ -1,6 +1,19 @@
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+html,
+body {
+  font-family: "Roboto", sans-serif;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  margin: 0;
+}
+
 .tekchat-date-line:before,
 .tekchat-date-line:after {
-  content: '' !important;
+  content: "" !important;
   background-color: #4a4a66 !important;
   height: 1px !important;
   margin-top: 6px !important;

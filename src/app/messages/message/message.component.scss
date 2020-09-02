@@ -1,0 +1,30 @@
+:host {
+  margin: 20px;
+  .avatar {
+    width: 2.3rem;
+    height: 2.3rem;
+    border-radius: 5px;
+  }
+
+  h5 {
+    &.name {
+      margin: 0px;
+    }
+  }
+
+  .incoming-message {
+    margin-left: auto;
+    padding-left: 20px;
+  }
+}
+
+.time {
+  font-size: 0.8rem;
+}
+
+.message-content {
+  background-color: #0a80ff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  color: white;
+}
