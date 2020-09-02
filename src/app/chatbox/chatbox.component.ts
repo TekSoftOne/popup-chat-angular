@@ -39,6 +39,8 @@ export class ChatboxComponent implements OnInit, OnDestroy {
   private height: number = window.innerHeight;
   private mobileWidth = 760;
 
+  public panelOpenState = false;
+
   constructor(private db: AngularFirestore) {}
 
   ngOnInit(): void {

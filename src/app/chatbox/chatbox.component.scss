@@ -11,16 +11,31 @@
   overflow: auto;
 }
 
-.chat-box-fluid {
+.chat-box-fluid,
+.chat-panel-fluid {
   right: 20px;
   bottom: 20px;
   width: 400px;
-  height: 500px;
   border-radius: 3px;
 }
 
+.chat-box-open {
+  height: 500px;
+}
+
+.chat-panel-open {
+  height: 600px;
+}
+
+.chat-panel-close,
+.chat-box-close {
+  height: 48px !important;
+  width: 100px !important;
+}
+
 @media (max-width: 768px) {
-  .chat-box-full {
+  .chat-box-full,
+  .chat-panel-full {
     right: 0px !important;
     bottom: 0px !important;
     height: 100% !important;
