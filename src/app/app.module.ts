@@ -6,7 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { RootComponent } from './root.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MessageComponent } from './messages/message/message.component';
+import { MessageComponent } from './messages/message.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
@@ -15,13 +15,14 @@ import { AngularFireModule } from 'angularfire2';
 import { environment } from 'src/environments/environment';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ChatboxComponent } from './chatbox/chatbox.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
 };
 
 @NgModule({
-  declarations: [RootComponent, MessageComponent],
+  declarations: [RootComponent, MessageComponent, ChatboxComponent],
   imports: [
     BrowserModule,
     MatButtonModule,
@@ -36,6 +37,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     AngularFirestoreModule,
     BrowserAnimationsModule,
   ],
+  exports: [ChatboxComponent],
   providers: [
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
