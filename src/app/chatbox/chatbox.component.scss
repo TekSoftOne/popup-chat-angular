@@ -14,7 +14,6 @@ $chat-box-height: 600px;
   overflow: auto;
 }
 
-.chat-box-fluid,
 .chat-panel-fluid {
   right: 20px;
   bottom: 20px;
@@ -41,16 +40,6 @@ $chat-box-height: 600px;
 }
 
 @media (max-width: 768px) {
-  .chat-box-full {
-    right: 0px;
-    bottom: 0px;
-    height: calc(100% - #{$panel-bar-height});
-    width: 100%;
-    min-width: 100%;
-    min-height: calc(100% - #{$panel-bar-height});
-    border-radius: 0px;
-  }
-
   .chat-panel-full {
     right: 0px;
     bottom: 0px;

@@ -4,9 +4,17 @@ import {
   ViewChild,
   ElementRef,
   Component,
+  HostListener,
 } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
-import { Observable, of, throwError, Subscription, combineLatest } from 'rxjs';
+import {
+  Observable,
+  of,
+  throwError,
+  Subscription,
+  combineLatest,
+  BehaviorSubject,
+} from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { catchError, tap, map } from 'rxjs/operators';
 import { Message } from '../interfaces';
@@ -34,9 +42,8 @@ export class ChatboxComponent implements OnInit, OnDestroy {
   public me = '1';
   public currentUser = '2';
 
-  public isMobile = false;
-  private width: number = window.innerWidth;
-  private height: number = window.innerHeight;
+  public isMobile$: Observable<boolean>;
+  private width$: BehaviorSubject<number>;
   private mobileWidth = 760;
 
   public panelOpenState = false;
@@ -44,8 +51,8 @@ export class ChatboxComponent implements OnInit, OnDestroy {
   constructor(private db: AngularFirestore) {}
 
   ngOnInit(): void {
-    this.checkIsMobile();
-
+    this.width$ = new BehaviorSubject<number>(screen.width);
+    this.isMobile$ = this.width$.pipe(map((w) => w < this.mobileWidth));
     const incommingMessages = this.db
       .collection(this.COLLECTION_NAME)
       .doc(this.me)
@@ -68,6 +75,11 @@ export class ChatboxComponent implements OnInit, OnDestroy {
     );
   }
 
+  @HostListener('window:resize')
+  public onResize(): void {
+    this.width$.next(screen.width);
+  }
+
   ngOnDestroy(): void {
     if (this.sendMessageSubscription) {
       this.sendMessageSubscription.unsubscribe();
@@ -76,10 +88,6 @@ export class ChatboxComponent implements OnInit, OnDestroy {
     if (this.loadMessageSubscription) {
       this.loadMessageSubscription.unsubscribe();
     }
-  }
-
-  private checkIsMobile(): void {
-    this.isMobile = this.width < this.mobileWidth;
   }
 
   public sendMessage(): Observable<boolean> {
