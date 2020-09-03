@@ -17,13 +17,14 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ChatboxComponent } from './chatbox/chatbox.component';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { ChatContainerComponent } from './chat-container/chat-container.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
 };
 
 @NgModule({
-  declarations: [RootComponent, MessageComponent, ChatboxComponent],
+  declarations: [RootComponent, MessageComponent, ChatboxComponent, ChatContainerComponent],
   imports: [
     BrowserModule,
     MatButtonModule,

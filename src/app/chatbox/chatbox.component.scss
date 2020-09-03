@@ -1,121 +1,138 @@
-$panel-bar-height: 65px;
-$header-height: 100px;
-$chat-box-height: 600px;
-#chat-right {
-  width: 100%;
-}
+:host {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 14px;
+  color: #333;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 
-.chat-form {
-  margin: 20px;
-}
-
-.messages-list {
-  margin: 20px;
-  overflow: auto;
-}
-
-.chat-panel-fluid {
-  right: 20px;
-  bottom: 20px;
-  width: 400px;
-  border-radius: 3px;
-}
-
-.chat-box-open {
-  height: $chat-box-height - $panel-bar-height;
-}
-
-.chat-panel-open {
-  height: $chat-box-height;
-}
-
-.chat-panel-close,
-.chat-box-close {
-  height: 48px !important;
-  width: 70px !important;
-  min-height: auto !important;
-  min-width: auto !important;
-  right: 40px !important;
-  bottom: 40px !important;
-}
-
-@media (max-width: 768px) {
-  .chat-panel-full {
-    right: 0px;
-    bottom: 0px;
-    height: 100%;
-    width: 100%;
-    min-width: 100%;
-    min-height: 100%;
-    border-radius: 0px;
-  }
-}
-
-mat-expansion-panel-header,
-mat-expansion-panel-header:hover {
-  //background-color: black !important;
-  //color: white !important;
-  border-bottom-right-radius: 0px !important;
-  border-bottom-left-radius: 0px !important;
-}
-
-// Everything
-
-::ng-deep {
-  $custom-main-color: rgba(0, 0, 0, 0.6);
-  $custom-label-color: rgba(0, 0, 0, 0.8);
-
-  // mat-icon-stepper selected color change
-  .mat-step-header .mat-step-icon-selected,
-  .mat-step-header .mat-step-icon-state-done,
-  .mat-step-header .mat-step-icon-state-edit {
-    background-color: $custom-main-color !important;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: 8px 0;
   }
 
-  // input outline color
-  .mat-form-field-appearance-outline .mat-form-field-outline {
-    color: $custom-main-color !important;
+  p {
+    margin: 0;
   }
 
-  // mat-input focused color
-  .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
-    color: $custom-main-color !important;
+  $panel-bar-height: 65px;
+  $header-height: 100px;
+  $chat-box-height: 600px;
+
+  .chat-panel-fluid {
+    right: 20px;
+    bottom: 20px;
+    width: 400px;
+    border-radius: 3px;
   }
 
-  // mat-input error outline color
-  .mat-form-field-appearance-outline.mat-form-field-invalid.mat-form-field-invalid
-    .mat-form-field-outline-thick {
-    color: $custom-main-color !important;
-    opacity: 0.8 !important;
+  .chat-box-open {
+    height: $chat-box-height - $panel-bar-height;
   }
 
-  // mat-input caret color
-  .mat-input-element {
-    caret-color: $custom-main-color !important;
+  .chat-panel-open {
+    height: $chat-box-height;
   }
 
-  // mat-input error caret color
-  .mat-form-field-invalid .mat-input-element,
-  .mat-warn .mat-input-element {
-    caret-color: $custom-main-color !important;
+  .chat-panel-close,
+  .chat-box-close {
+    height: 48px !important;
+    width: 70px !important;
+    min-height: auto !important;
+    min-width: auto !important;
+    right: 40px !important;
+    bottom: 40px !important;
   }
 
-  // mat-label normal state style
-  .mat-form-field-label {
-    color: $custom-label-color !important;
+  @media (max-width: 768px) {
+    .chat-panel-full {
+      right: 0px;
+      bottom: 0px;
+      height: 100%;
+      width: 100%;
+      min-width: 100%;
+      min-height: 100%;
+      border-radius: 0px;
+    }
   }
 
-  // mat-label focused style
-  .mat-form-field.mat-focused .mat-form-field-label {
-    color: $custom-main-color !important;
+  .mat-expansion-panel-header-title,
+  .mat-expansion-panel-header-description {
+    margin-right: 30px;
   }
 
-  // mat-label error style
-  .mat-form-field.mat-form-field-invalid .mat-form-field-label {
-    color: $custom-main-color !important;
+  mat-expansion-panel-header,
+  mat-expansion-panel-header:hover {
+    //background-color: black !important;
+    //color: white !important;
+    border-bottom-right-radius: 0px !important;
+    border-bottom-left-radius: 0px !important;
   }
 
-  .mat-form-field.mat-focused .mat-form-field-ripple {
-    background-color: $custom-main-color;
+  // Everything
+
+  ::ng-deep {
+    $custom-main-color: rgba(0, 0, 0, 0.6);
+    $custom-label-color: rgba(0, 0, 0, 0.8);
+
+    // mat-icon-stepper selected color change
+    .mat-step-header .mat-step-icon-selected,
+    .mat-step-header .mat-step-icon-state-done,
+    .mat-step-header .mat-step-icon-state-edit {
+      background-color: $custom-main-color !important;
+    }
+
+    // input outline color
+    .mat-form-field-appearance-outline .mat-form-field-outline {
+      color: $custom-main-color !important;
+    }
+
+    // mat-input focused color
+    .mat-form-field-appearance-outline.mat-focused
+      .mat-form-field-outline-thick {
+      color: $custom-main-color !important;
+    }
+
+    // mat-input error outline color
+    .mat-form-field-appearance-outline.mat-form-field-invalid.mat-form-field-invalid
+      .mat-form-field-outline-thick {
+      color: $custom-main-color !important;
+      opacity: 0.8 !important;
+    }
+
+    // mat-input caret color
+    .mat-input-element {
+      caret-color: $custom-main-color !important;
+    }
+
+    // mat-input error caret color
+    .mat-form-field-invalid .mat-input-element,
+    .mat-warn .mat-input-element {
+      caret-color: $custom-main-color !important;
+    }
+
+    // mat-label normal state style
+    .mat-form-field-label {
+      color: $custom-label-color !important;
+    }
+
+    // mat-label focused style
+    .mat-form-field.mat-focused .mat-form-field-label {
+      color: $custom-main-color !important;
+    }
+
+    // mat-label error style
+    .mat-form-field.mat-form-field-invalid .mat-form-field-label {
+      color: $custom-main-color !important;
+    }
+
+    .mat-form-field.mat-focused .mat-form-field-ripple {
+      background-color: $custom-main-color;
+    }
   }
 }

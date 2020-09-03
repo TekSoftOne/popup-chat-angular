@@ -1,0 +1,54 @@
+<div style="padding: 10px 20px">
+  <ng-container>
+    <div>Support is away</div>
+    <a
+      data-channel="email"
+      href="mailto:support@teksoft1.com>"
+      target="_parent"
+      rel="noopener noreferrer"
+    >
+      <span>Continue on Email</span>
+    </a>
+  </ng-container>
+</div>
+<perfect-scrollbar [config]="config">
+  <div fxFlex class="messages-list" #chatPanel>
+    <ng-container *ngIf="messages | async as userMessages">
+      <app-message
+        *ngFor="let userMessage of userMessages"
+        class=""
+        [content]="userMessage.content"
+        [type]="userMessage.receiverId === '1' ? 'incoming' : 'outgoing'"
+      ></app-message>
+    </ng-container>
+  </div>
+</perfect-scrollbar>
+
+<div class="chat-input">
+  <form
+    fxLayout
+    fxLayoutGap="5px"
+    #fChat
+    class="chat-form"
+    (ngSubmit)="sendMessage()"
+  >
+    <mat-form-field fxFlex>
+      <input
+        type="text"
+        matInput
+        placeholder="Enter your message"
+        [(ngModel)]="message"
+        name="messageBox"
+      />
+    </mat-form-field>
+    <button
+      [disabled]="message.length === 0"
+      type="submit"
+      mat-icon-button
+      id="chat-message-box"
+      color="accent"
+    >
+      <mat-icon>send</mat-icon>
+    </button>
+  </form>
+</div>
