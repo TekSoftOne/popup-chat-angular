@@ -4,3 +4,8 @@ export interface Message {
   read: boolean;
   attachment: string;
 }
+
+export interface SessionProps {
+  agentGUID: string;
+  userGUID: string;
+}
