@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Timestamp } from 'rxjs/internal/operators/timestamp';
 
 @Component({
   selector: 'app-message',
@@ -8,6 +9,10 @@ import { Component, OnInit, Input } from '@angular/core';
 export class MessageComponent implements OnInit {
   @Input() content: string;
   @Input() type = 'outcoming'; // incoming
+  @Input() at: any;
+  @Input() senderId: string;
+  @Input() receiverId: string;
+  @Input() me: string;
   constructor() {}
 
   ngOnInit(): void {}

@@ -31,18 +31,21 @@ export class ChatContainerComponent implements OnInit, OnDestroy {
   @ViewChild('chatPanel') chatPanel: ElementRef;
   @ViewChild(PerfectScrollbarComponent, { static: false })
   componentRef: PerfectScrollbarComponent;
+
   public messages: Observable<any>;
   public message = '';
   public config: PerfectScrollbarConfigInterface = {};
 
   private readonly CLIENT_GUID = '9245fe4a-d402-451c-b9ed-9c1a04247482';
+  private readonly TOKEN_NAME = 'TEK_USER_SESSION';
+
   private sendMessageSubscription: Subscription;
   private loadMessageSubscription: Subscription;
-  public me = '1';
-  public currentUser = '2';
-  private readonly TOKEN_NAME = 'TEK_USER_SESSION';
+  private sessionProsSubscription: Subscription;
+
   private readonly userSession$: Observable<string>;
   private readonly activeAgents$: Observable<string>;
+
   public sessionProps: Observable<SessionProps>;
   private userGUID = '';
   private agentGUID = '';
@@ -65,7 +68,7 @@ export class ChatContainerComponent implements OnInit, OnDestroy {
       })
     );
 
-    this.sessionProps.subscribe();
+    this.sessionProsSubscription = this.sessionProps.subscribe();
 
     this.messages = this.sessionProps.pipe(
       switchMap((session) => {
@@ -90,12 +93,18 @@ export class ChatContainerComponent implements OnInit, OnDestroy {
           .valueChanges();
 
         return combineLatest([incommingMessages, outcomingMessages]).pipe(
-          map(([i, o]) => [...i, ...o]),
-          tap(() => {
-            setTimeout(() => {
-              this.scrollToBottom();
-            }, 1);
-          })
+          map(([i, o]) => {
+            const messages = [...i, ...o] as Message[];
+            return messages.sort((m1, m2) => {
+              if (m1.at > m2.at) {
+                return 1;
+              } else if (m1.at < m2.at) {
+                return -1;
+              }
+              return 0;
+            });
+          }),
+          tap(() => setTimeout(() => this.scrollToBottom(), 1))
         );
       })
     );
@@ -110,6 +119,10 @@ export class ChatContainerComponent implements OnInit, OnDestroy {
 
     if (this.loadMessageSubscription) {
       this.loadMessageSubscription.unsubscribe();
+    }
+
+    if (this.sessionProsSubscription) {
+      this.sessionProsSubscription.unsubscribe();
     }
   }
 
@@ -130,7 +143,7 @@ export class ChatContainerComponent implements OnInit, OnDestroy {
       .valueChanges()
       .pipe(
         tap((data) => {
-          //console.log(data);
+          // console.log(data);
         }),
         map((agents) => agents[0].guid)
       );
@@ -181,7 +194,7 @@ export class ChatContainerComponent implements OnInit, OnDestroy {
       this.sendMessageSubscription = this.saveMessage()
         .pipe(
           catchError((error) => {
-            //console.log('send error');
+            // console.log('send error');
             return throwError(error);
           }),
           tap(() => (this.message = '')),

@@ -18,6 +18,10 @@
         *ngFor="let userMessage of userMessages"
         class=""
         [content]="userMessage.content"
+        [at]="userMessage.at"
+        [senderId]="userMessage.senderId"
+        [me]="userGUID"
+        [receiverId]="userMessage.receiverId"
         [type]="userMessage.receiverId === '1' ? 'incoming' : 'outgoing'"
       ></app-message>
     </ng-container>

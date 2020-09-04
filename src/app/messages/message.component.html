@@ -10,13 +10,14 @@
       [fxLayoutAlign]="type === 'incoming' ? 'flex-end' : 'flex-start'"
     >
       <img
+        *ngIf="!(senderId === me)"
         class="avatar"
         alt="image"
         src="https://source.unsplash.com/random/700x700?technology"
       />
       <div fxLayout="column" fxLayoutGap="5px">
-        <h5 class="name">teksoft1</h5>
-        <div class="time">10:20 AM</div>
+        <h5 *ngIf="!(senderId === me)" class="name">You</h5>
+        <div class="time">{{ at.toDate() | date: "shortTime" }}</div>
       </div>
     </div>
     <div class="message-content">{{ content }}</div>
