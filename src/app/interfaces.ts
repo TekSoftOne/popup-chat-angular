@@ -8,4 +8,12 @@ export interface Message {
 export interface SessionProps {
   agentGUID: string;
   userGUID: string;
+  agentName: string;
+}
+
+export interface ActiveAgent {
+  guid: string;
+  name: string;
+  lastAccess: any; //timestamp
+  lastMessage: string;
 }

@@ -16,7 +16,7 @@
         src="https://source.unsplash.com/random/700x700?technology"
       />
       <div fxLayout="column" fxLayoutGap="5px">
-        <h5 *ngIf="!(senderId === me)" class="name">You</h5>
+        <h5 *ngIf="!(senderId === me)" class="name">{{ name }}</h5>
         <div class="time">{{ at.toDate() | date: "shortTime" }}</div>
       </div>
     </div>

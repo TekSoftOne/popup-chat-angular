@@ -13,6 +13,7 @@ export class MessageComponent implements OnInit {
   @Input() senderId: string;
   @Input() receiverId: string;
   @Input() me: string;
+  @Input() name: string;
   constructor() {}
 
   ngOnInit(): void {}

@@ -5,7 +5,7 @@ import {
   ViewChild,
   ElementRef,
 } from '@angular/core';
-import { Message, SessionProps } from '../interfaces';
+import { Message, SessionProps, ActiveAgent } from '../interfaces';
 import {
   PerfectScrollbarComponent,
   PerfectScrollbarConfigInterface,
@@ -18,7 +18,7 @@ import {
   of,
   pipe,
 } from 'rxjs';
-import { AngularFirestore } from 'angularfire2/firestore';
+import { AngularFirestore, DocumentData } from 'angularfire2/firestore';
 import { map, tap, catchError, switchMap, concatMap } from 'rxjs/operators';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -42,35 +42,34 @@ export class ChatContainerComponent implements OnInit, OnDestroy {
   private sendMessageSubscription: Subscription;
   private loadMessageSubscription: Subscription;
   private sessionProsSubscription: Subscription;
+  private activeAgentSubscription: Subscription;
 
   private readonly userSession$: Observable<string>;
-  private readonly activeAgents$: Observable<string>;
-
-  public sessionProps: Observable<SessionProps>;
-  private userGUID = '';
-  private agentGUID = '';
+  private readonly activeAgents$: Observable<ActiveAgent>;
+  public sessionProps: SessionProps;
 
   constructor(private db: AngularFirestore) {
     this.userSession$ = this.getUserSession();
     this.activeAgents$ = this.getActiveAgent();
     this.activeAgents$.subscribe();
 
-    this.sessionProps = combineLatest([
+    const sessionProps$ = combineLatest([
       this.userSession$,
       this.activeAgents$,
     ]).pipe(
-      map(([userGUID, agentGUID]) => {
-        return { userGUID, agentGUID } as SessionProps;
+      map(([userGUID, agent]) => {
+        return {
+          userGUID,
+          agentGUID: agent.guid,
+          agentName: agent.name,
+        } as SessionProps;
       }),
-      tap((s) => {
-        this.userGUID = s.userGUID;
-        this.agentGUID = s.agentGUID;
-      })
+      tap((s) => (this.sessionProps = s))
     );
 
-    this.sessionProsSubscription = this.sessionProps.subscribe();
+    this.sessionProsSubscription = sessionProps$.subscribe();
 
-    this.messages = this.sessionProps.pipe(
+    this.messages = sessionProps$.pipe(
       switchMap((session) => {
         if (session.agentGUID === '' || session.userGUID === '') {
           return of([]);
@@ -124,6 +123,10 @@ export class ChatContainerComponent implements OnInit, OnDestroy {
     if (this.sessionProsSubscription) {
       this.sessionProsSubscription.unsubscribe();
     }
+
+    if (this.activeAgentSubscription) {
+      this.activeAgentSubscription.unsubscribe();
+    }
   }
 
   private registerUserSession(): Observable<string> {
@@ -135,7 +138,7 @@ export class ChatContainerComponent implements OnInit, OnDestroy {
     );
   }
 
-  private getActiveAgent(): Observable<string> {
+  private getActiveAgent(): Observable<ActiveAgent> {
     return this.db
       .collection('clients')
       .doc('activeAgents')
@@ -145,7 +148,12 @@ export class ChatContainerComponent implements OnInit, OnDestroy {
         tap((data) => {
           // console.log(data);
         }),
-        map((agents) => agents[0].guid)
+        map((agents) => ({
+          guid: agents[0].guid,
+          name: agents[0].name,
+          lastAccess: agents[0].lastAccess,
+          lastMessage: agents[0].lastMessage,
+        }))
       );
   }
 
@@ -197,6 +205,7 @@ export class ChatContainerComponent implements OnInit, OnDestroy {
             // console.log('send error');
             return throwError(error);
           }),
+          tap(() => this.saveLastAccess()),
           tap(() => (this.message = '')),
           tap(() => console.log('send success!'))
         )
@@ -210,6 +219,20 @@ export class ChatContainerComponent implements OnInit, OnDestroy {
     return 'something';
   }
 
+  private saveLastAccess(): void {
+    this.db
+      .collection('clients')
+      .doc('activeUsers')
+      .collection(this.CLIENT_GUID)
+      .doc(this.sessionProps.userGUID)
+      .update({
+        guid: this.sessionProps.userGUID,
+        lastAccess: new Date(),
+        lastMessage: this.message,
+      });
+    console.log('last access:' + new Date());
+  }
+
   private saveMessage(): Observable<void> {
     if (this.getCurrentAgentGUID() !== '' && this.getUserGUID() !== '') {
       const moment = new Date();
@@ -218,15 +241,15 @@ export class ChatContainerComponent implements OnInit, OnDestroy {
           .collection('clients')
           .doc('messages')
           .collection(this.CLIENT_GUID)
-          .doc(this.userGUID)
-          .collection(this.agentGUID)
+          .doc(this.sessionProps.userGUID)
+          .collection(this.sessionProps.agentGUID)
           .add({
-            senderId: this.userGUID,
+            senderId: this.sessionProps.userGUID,
             content: this.message,
             at: moment,
             attachment: '',
             read: false,
-            receiverId: this.agentGUID,
+            receiverId: this.sessionProps.agentGUID,
           } as Message)
           .then(() => {
             subscriber.next();

@@ -20,9 +20,14 @@
         [content]="userMessage.content"
         [at]="userMessage.at"
         [senderId]="userMessage.senderId"
-        [me]="userGUID"
+        [me]="sessionProps.userGUID"
+        [name]="sessionProps.agentName"
         [receiverId]="userMessage.receiverId"
-        [type]="userMessage.receiverId === '1' ? 'incoming' : 'outgoing'"
+        [type]="
+          userMessage.receiverId === sessionProps.userGUID
+            ? 'incoming'
+            : 'outgoing'
+        "
       ></app-message>
     </ng-container>
   </div>
@@ -56,3 +61,7 @@
     </button>
   </form>
 </div>
+<section class="brand-name">
+  We run on
+  <a href="#">TekSoft1 Chat</a>
+</section>
